@@ -1,6 +1,6 @@
 # Split layout
 
-The existing gated [SoccerNet-GAR dataset](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/main) contains train, valid, and test assets in modality-specific Parquet/WebDataset form. This repository does not copy the protected assets. The [data guide](../docs/data.md) explains access and the cross-modality ID issue.
+The existing gated [SoccerNet-GAR dataset](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/main) contains train, valid, and test assets in modality-specific Parquet/WebDataset form. This repository does not copy the protected assets. The [data guide](../README.md#data) explains access and the cross-modality ID issue.
 
 | Split | Status | Ground truth here? |
 | --- | --- | --- |

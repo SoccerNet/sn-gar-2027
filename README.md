@@ -1,62 +1,61 @@
-# SoccerNet Challenge 2027 — Group Activity Recognition
+# SoccerNet Challenge 2027 — Group Activity Recognition (GAR)
 
-📢 **Group Activity Recognition Challenge!** 🚀
+📢 **Group Activity Recognition (GAR) Challenge!** 🚀
 
-How do pixels and player positions contribute to understanding collective activities in football? Building on SN-GAR, this challenge explores group activity recognition using visual and positional information. Participants will investigate how these complementary representations help interpret the actions of players as a group.
-
-⏳ **Status:** In preparation — submissions are not open.  
-📅 **Submission deadline:** April 25, 2027; cutoff time and timezone to be announced.  
-👥 **Task lead(s):** Silvio Giancola  
+⏳ **Status:** In preparation — submissions are not open.\
+📅 **Submission deadline:** April 25, 2027, 23:59 Anywhere on Earth (AoE; UTC−12).\
+👥 **Task leads:** Silvio Giancola\
 🤝 **Sponsor:** To be announced
 
-🏠 [Challenge website](https://www.soccer-net.org/challenges/2027) / 🗂️ [Data](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) / 💻 [Baseline repository](https://github.com/drishyakarki/pixels_vs_positions) / 📚 [Rules](docs/rules.md) / 📊 [Evaluation](evaluation/README.md)
+🏠 [Challenge website](https://www.soccer-net.org/challenges/2027) · 🗂️ [Data on Hugging Face](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) · 💻 [Baseline](baselines/README.md) · 📚 [Rules](RULES.md) · 📊 [Evaluation](evaluation/README.md) · 🏆 [Evaluation server](https://www.codabench.org/) (task URL TBD)
 
 ## Task
 
-[Task specification and open decisions](docs/task.md) describes the current scope. This repository will hold the versioned evaluation code and submission instructions for the 2027 challenge. Baselines may live here or in an external repository linked below.
+Given soccer video pixels, player positions, or both, predict one of the ten SoccerNet-GAR group activity classes for each clip. The challenge compares these representations on **one leaderboard** ranked by balanced accuracy. The task and baseline originate in [*Pixels or Positions? Benchmarking Modalities in Group Activity Recognition*](https://openaccess.thecvf.com/content/CVPR2026W/CVsports/html/Karki_Pixels_or_Positions_Benchmarking_Modalities_in_Group_Activity_Recognition_CVPRW_2026_paper.html).
 
 ## Data
 
-Access the dataset on [Hugging Face](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR). Follow its access conditions and download instructions.
+The gated [SoccerNet-GAR dataset](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) provides modality-specific Parquet and WebDataset material for train, valid, and test. Request access, sign in to Hugging Face, and select the relevant `tracking` or `frames` revision. The [split inventory](data/README.md) records what is available and what still needs a stable ID manifest.
 
-The existing release stores modality-specific Parquet and WebDataset assets. See [the data guide](docs/data.md) and [split layout](data/README.md). The organizers plan to rank on the existing **test split**, whose labels are already available to approved dataset users. Participants must publish reproducible code and must not train on that split.
+The existing **test set is the planned 2027 ranking set**. Its ground truth is already accessible to approved users; this is an honor-system evaluation backed by reproducibility review. Test examples and labels must not be used for training, validation, tuning, or model selection. No separate hidden-label GAR challenge set is currently planned.
 
 ## Baseline
 
-External SN-GAR baseline: Pixels or Positions? Benchmarking Modalities in Group Activity Recognition. Follow the upstream installation and training instructions. Challenge compatibility and a pinned release are still to be validated.
-
-See [baseline instructions](baselines/README.md). Existing research baselines must be checked against the final challenge format before their scores are advertised as 2027 reference results.
+The reference method is the GIN + MaxPool + positional-edge tracking model from [Karki et al.](https://github.com/drishyakarki/pixels_vs_positions). [Baseline instructions](baselines/README.md) explain how to obtain the Hugging Face data, run the OpenSportsLib implementation, and reproduce its test metrics. A 2027 prediction file is still pending.
 
 ## Evaluation
 
-Balanced accuracy is the selected ranking metric on **one leaderboard**. The local scorer uses OpenSportsLib, but the 2027 reference split and CodaBench server still need to be frozen and tested.
+The [evaluation folder](evaluation/README.md) contains a CodaBench-style scorer that calls **OpenSportsLib's classification metric implementation** and reports balanced accuracy, macro F1, and accuracy. Balanced accuracy determines the single leaderboard. The real test-ID adapter and CodaBench server still need validation.
 
-See [evaluation instructions](evaluation/README.md) for current code, submission formats and remaining decisions. CodaBench test and challenge links will be added after the servers have been validated.
+## Citation
+
+Please cite the GAR benchmark paper in its CVPR Workshops version:
+
+```bibtext
+@InProceedings{Karki_2026_CVPR,
+  author = {Karki, Drishya and Ramazanova, Merey and Cioppa, Anthony and Giancola, Silvio and Ghanem, Bernard},
+  title = {Pixels or Positions? Benchmarking Modalities in Group Activity Recognition},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+  month = {June},
+  year = {2026},
+  pages = {9998--10008},
+  url = {https://openaccess.thecvf.com/content/CVPR2026W/CVsports/html/Karki_Pixels_or_Positions_Benchmarking_Modalities_in_Group_Activity_Recognition_CVPRW_2026_paper.html}
+}
+```
+
+## Updates and support
+
+Each task launches independently when ready. Follow the [challenge website](https://www.soccer-net.org/challenges/2027) and [SoccerNet Discord](https://discord.gg/cPbqf2mAwF) for announcements. Use repository issues for reproducible code problems; do not post access tokens or restricted data.
 
 ## Release readiness
 
 | Item | Current state |
 | --- | --- |
-| Task definition | Draft rules; one leaderboard and balanced accuracy confirmed |
-| Data and splits | Existing gated SN-GAR train/valid/test; test reused for ranking; stable submission IDs pending |
-| Baseline | Research code available; 2027 prediction files pending |
-| Evaluation | OpenSportsLib scorer locally tested; real adapter pending |
-| Benchmark | CodaBench server pending |
-| Sponsor | Not confirmed |
+| Task definition | One leaderboard and balanced accuracy confirmed; modality eligibility and detailed rules pending |
+| Data | Gated train/valid/test exist; test reused for ranking; ID manifest pending |
+| Baseline | Research method/code available; 2027 predictions pending |
+| Evaluation | OpenSportsLib scorer locally tested; real split adapter pending |
+| Benchmark | CodaBench server TBD |
+| Sponsor | TBD |
 
-Each task launches independently after its rules, data, baseline, evaluator and benchmark are verified. See the [task specification](docs/task.md) for remaining technical decisions.
-
-## Getting started
-
-1. Read the [task specification](docs/task.md) and [draft rules](docs/rules.md).
-2. Follow the [data access guide](docs/data.md).
-3. Consult the [baseline instructions](baselines/README.md).
-4. Check the [evaluation status](evaluation/README.md) before generating submissions.
-
-## Updates and support
-
-Each task launches independently once ready. Follow the [challenge website](https://www.soccer-net.org/challenges/2027) and [SoccerNet Discord](https://discord.gg/cPbqf2mAwF). Use repository issues for reproducible code problems; do not post access tokens, restricted data or private labels.
-
-## Citation and licensing
-
-Please cite [Karki et al., *Pixels or Positions?*, CVPR Workshops 2026](https://openaccess.thecvf.com/content/CVPR2026W/CVsports/html/Karki_Pixels_or_Positions_Benchmarking_Modalities_in_Group_Activity_Recognition_CVPRW_2026_paper.html) when using SoccerNet-GAR. Use `\cite{Karki_2026_CVPR}` in LaTeX; its conference BibTeX is in [CITATION.bib](CITATION.bib). The 2027 challenge citation and repository code license will be confirmed before release. Dataset access terms and external baseline licenses apply independently.
+This section is for preparation and will be removed when this task is ready for release.
