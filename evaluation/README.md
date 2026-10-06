@@ -14,4 +14,4 @@ Place `reference.json` at `input/ref/reference.json` and the participant's `pred
 python evaluation/scoring.py --input input --output output
 ```
 
-The script writes `output/scores.json`. The reference file contains labels; only the evaluation environment needs it. Predictions alone cannot establish which input modality a method used, so submitted code supplies that evidence under the [rules](../RULES.md).
+The script writes `output/scores.json`. The reference file contains labels; only the evaluation environment needs it. Submitted code supports reproducibility review under the [rules](../RULES.md).
