@@ -1,9 +1,9 @@
-# GAR Challenge Rules — draft
+# Group Activity Recognition challenge rules
 
 📅 **Submission deadline:** April 25, 2027, 23:59 Anywhere on Earth (AoE; UTC−12).
 
-The 2027 GAR task has **one leaderboard**, ranked by balanced accuracy across the ten classes. Pixel, position, and possible fusion inputs share that leaderboard; exact modality eligibility will be frozen before launch.
+Submissions predict one of the ten SoccerNet-GAR group activity classes for each test clip. Pixel, position, and combined-input methods share **one leaderboard**, ranked by balanced accuracy.
 
-The existing SoccerNet-GAR test set is the planned ranking set, despite its labels being accessible to approved users. **Do not train, validate, tune, or select models using test examples or labels.** Final submissions must include released code that reproduces the predictions and score without test-set training. The exact code, checkpoint, environment, and audit package are still to be specified.
+The challenge uses the existing SoccerNet-GAR test split. Although its labels are accessible to approved dataset users, **do not use test examples or labels for training, validation, tuning, or model selection**. Final submissions must include code that reproduces the reported predictions and score without test-set training.
 
-Participants must follow the dataset's access conditions and may not redistribute protected media or tracking data. Team eligibility, external training data, pretrained models, API use, submission limits, tie policy, and appeal procedure remain pending. See [evaluation](evaluation/README.md) for the draft submission format. These rules become official only when the task launches.
+Follow the [dataset access terms](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) and do not redistribute protected video or tracking data. The [evaluation guide](evaluation/README.md) defines the prediction file and scoring metric.

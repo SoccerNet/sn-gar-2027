@@ -1,13 +1,11 @@
-# Baseline
+# GAR baseline
 
-The reference is [*Pixels or Positions?*](https://github.com/drishyakarki/pixels_vs_positions). Its GIN + MaxPool + positional-edge tracking model is the published balanced-accuracy baseline. The paper reports **77.8% balanced accuracy averaged over five runs**; an individual run can differ. The current [OpenSportsLib SN-GAR example](https://github.com/OpenSportsLab/opensportslib/blob/main/examples/sngar/README.md) reproduces that configuration using the current Hugging Face layout.
-
-Repository: [https://github.com/drishyakarki/pixels_vs_positions](https://github.com/drishyakarki/pixels_vs_positions).
+The tracking reference from [*Pixels or Positions?*](https://github.com/drishyakarki/pixels_vs_positions) is a GIN + MaxPool model with positional edges. The paper reports **77.8% balanced accuracy** and **57.0% macro F1**, averaged over five runs. The current [OpenSportsLib SN-GAR guide](https://github.com/OpenSportsLab/opensportslib/blob/main/examples/sngar/README.md) reproduces the configuration with the current Hugging Face layout.
 
 1. Request access to [OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) and run `hf auth login`.
-2. Clone [OpenSportsLib](https://github.com/OpenSportsLab/opensportslib), follow its installation guide, and install `torch-geometric`. The paper configuration requests a GPU.
-3. From the OpenSportsLib root, use `examples/sngar/sngar_tracking_hf.yaml`, which reads the `tracking` revision. Alternatively download each split with `python tools/download/download_osl_hf.py --repo-id OpenSportsLab/SoccerNet-GAR --revision tracking --split <train|valid|test> --output-dir ./sngar-data` and use `sngar_tracking_local.yaml`.
-4. From that root, run this training and inference sequence, which selects a checkpoint on validation before test inference:
+2. Clone [OpenSportsLib](https://github.com/OpenSportsLab/opensportslib), follow its installation guide, and install `torch-geometric`. The reference configuration requests a GPU.
+3. From the OpenSportsLib root, use `examples/sngar/sngar_tracking_hf.yaml`, which reads the `tracking` revision. For a local copy, use `tools/download/download_osl_hf.py` and `sngar_tracking_local.yaml` as described in the upstream guide.
+4. Train on `train`, select the checkpoint on `valid`, then infer and evaluate on `test`:
 
    ```python
    from opensportslib.apis import ClassificationModel
@@ -19,8 +17,4 @@ Repository: [https://github.com/drishyakarki/pixels_vs_positions](https://github
    print(checkpoint, metrics["balanced_accuracy"])
    ```
 
-Convert the resulting test predictions to the ID/label contract in the [evaluation guide](../evaluation/README.md). The stable cross-modality test ID manifest is pending. Pin the package and data revisions for a 2027 run.
-
-The 2027 test-set baseline prediction file is **TBD**. When supplied, commit a versioned prediction file (IDs and labels, without protected frames or tracking data), its producing code commit and inference command, and the score from [the OpenSportsLib scorer](../evaluation/README.md). Do not train or tune on the test split used for ranking.
-
-Before release, record the tested commit, environment, weights, inference command, output conversion, score, and compute requirements. External code remains in its upstream repository under its own license.
+For submission, convert predictions to the ID/label JSON contract in the [evaluation guide](../evaluation/README.md). The [rules](../RULES.md) prohibit training or selecting models on the test split.
