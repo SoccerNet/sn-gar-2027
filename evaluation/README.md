@@ -8,15 +8,14 @@ The scorer returns OpenSportsLib balanced accuracy, macro F1 and accuracy as per
 
 ## Submission and reference contract
 
-Submit a ZIP containing `predictions.json` at its root. The file is a JSON list of `{ "id": "...", "label": "..." }` records. IDs must be unique and match the reference exactly. Labels must belong to the frozen `classes` vocabulary. The private reference uses `{"task":"gar","classes":[...],"records":[{"id":"...","label":"..."}]}`. [Synthetic files](../examples) demonstrate this proposed format; they are not the real 2027 set.
+Submit a ZIP containing `predictions.json` at its root. The file is a JSON list of `{ "id": "...", "label": "..." }` records. IDs must be unique and match the reference exactly. Labels must belong to the frozen `classes` vocabulary. The private reference uses `{"task":"gar","classes":[...],"records":[{"id":"...","label":"..."}]}`. The real 2027 test-ID manifest is still pending.
 
 ## Local check and CodaBench
 
 Use Python 3.12 and install OpenSportsLib at the pinned commit with the dependencies in [Dockerfile](Dockerfile), or build that image. From this repository root:
 
 ```bash
-python evaluation/scoring.py --input examples --output outputs/example
-python -m unittest discover -s tests -v
+python evaluation/scoring.py --input /path/to/input --output /path/to/output
 ```
 
 CodaBench runs `evaluation/scoring.py` with `/app/input/ref/reference.json` and `/app/input/res/predictions.json`, writing `/app/output/scores.json`. The scoring package must use an image that has the pinned OpenSportsLib and scikit-learn installed. Put real reference labels only in the organizer package. Do not publish them in this repository or the participant bundle. The task is not live on CodaBench yet.

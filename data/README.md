@@ -4,9 +4,9 @@ The existing gated [SoccerNet-GAR dataset](https://huggingface.co/datasets/OpenS
 
 | Split | Status | Ground truth here? |
 | --- | --- | --- |
-| [train](train/) | In upstream dataset | No; request upstream access |
-| [valid](valid/) | In upstream dataset | No; request upstream access |
-| [test](test/) | In upstream dataset; used for 2027 ranking | No; request upstream access |
-| [challenge](challenge/) | Submission phase reuses test IDs; separate hidden set not planned now | No additional labels |
+| train | In upstream dataset | No; request upstream access |
+| valid | In upstream dataset | No; request upstream access |
+| test | In upstream dataset; used for 2027 ranking | No; request upstream access |
+| challenge | Submission phase reuses test IDs; separate hidden set not planned now | No additional labels |
 
 Publish a versioned test submission ID manifest after the modality files are aligned. The existing test labels are already upstream; do not copy them into this Git repository or into the participant submission template. Reproducible code and a no-test-training rule are required for final rankings.
