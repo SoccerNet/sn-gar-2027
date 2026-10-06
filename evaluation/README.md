@@ -1,34 +1,24 @@
-# Evaluation — prototype
+# Evaluation — OpenSportsLib adapter, draft 2027 protocol
 
-**Not an official challenge release.** Real manifest adapters, held-out reference data and the final scoring protocol are pending.
+The scorer delegates classification metrics to OpenSportsLib's `compute_classification_metrics(..., mode="labels")`. Its reference schema and 2027 leaderboard policy still need organizer approval. The image pins OpenSportsLib commit `dc96cbfd0128fa77cb3bf1b3319e5fdf8c53b5a7`; review and re-pin before launch.
 
 ## Metrics
 
-Balanced accuracy (mean recall across configured classes), macro F1 and overall accuracy, reported as percentages. Balanced accuracy is the proposed primary metric, pending organizer confirmation. Every configured class must occur in the reference split; otherwise this prototype rejects the reference rather than silently changing the metric.
+The scorer returns OpenSportsLib balanced accuracy, macro F1 and accuracy as percentages. **Balanced accuracy is the selected ranking metric on one leaderboard.** Classes are read from the reference's `classes` array, and every configured class must occur in the evaluated reference. Tie handling and modality eligibility remain open.
 
-## Local example
+## Submission and reference contract
 
-Python 3.9 or newer; no third-party dependencies. From the repository root:
+Submit a ZIP containing `predictions.json` at its root. The file is a JSON list of `{ "id": "...", "label": "..." }` records. IDs must be unique and match the reference exactly. Labels must belong to the frozen `classes` vocabulary. The private reference uses `{"task":"gar","classes":[...],"records":[{"id":"...","label":"..."}]}`. [Synthetic files](../examples) demonstrate this proposed format; they are not the real 2027 set.
+
+## Local check and CodaBench
+
+Use Python 3.12 and install OpenSportsLib at the pinned commit with the dependencies in [Dockerfile](Dockerfile), or build that image. From this repository root:
 
 ```bash
-python3 evaluation/scoring.py --input examples --output outputs/example
-python3 -m unittest discover -s tests -v
+python evaluation/scoring.py --input examples --output outputs/example
+python -m unittest discover -s tests -v
 ```
 
-The included data is synthetic. The sample predictions are perfect and should yield 100 for every reported metric. Generated aggregate scores are written to `outputs/example/scores.json`.
+CodaBench runs `evaluation/scoring.py` with `/app/input/ref/reference.json` and `/app/input/res/predictions.json`, writing `/app/output/scores.json`. The scoring package must use an image that has the pinned OpenSportsLib and scikit-learn installed. Put real reference labels only in the organizer package. Do not publish them in this repository or the participant bundle. The task is not live on CodaBench yet.
 
-## Proposed submission format
-
-A ZIP with `predictions.json` at its root. The JSON is a list of records, each with exactly `id` and `label`. IDs and values are nonempty strings; every expected ID must appear exactly once. Missing IDs, extra IDs, duplicate keys and unknown values are rejected. Order is irrelevant.
-
-See [the synthetic submission](../examples/res/predictions.json) and [synthetic reference](../examples/ref/reference.json). The reference schema contains `task`, `records` and `classes`. It is an internal prototype format, not an assertion about the native dataset format.
-
-## CodaBench integration
-
-The scoring directory contains `metadata.yaml` and `scoring.py`. At runtime it reads `/app/input/ref/reference.json` and `/app/input/res/predictions.json`, then writes `/app/output/scores.json`. Store real private references only in the organizer reference-data package, never in this repository or a public starting kit.
-
-Test and challenge servers: **coming soon**. Test against the real baseline and malformed submissions on CodaBench before launch. This repository alone does not create a competition or enforce input-modality restrictions.
-
-## Protocol decisions
-
-See [the task specification](../docs/task.md) and [draft rules](../docs/rules.md).
+The scorer checks submission syntax and labels. Pixel-only versus position-only restrictions require separate track configuration and, if needed, a finalist method audit; predictions alone cannot prove which modality was used.
