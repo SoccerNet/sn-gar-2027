@@ -1,7 +1,25 @@
 # Data
 
-[OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) provides train, valid, and test data. Request access with your Hugging Face account. The supplied baseline uses 16 sampled frames per clip from the [`tracking`](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/tracking) branch. Participants may also use the [`frames`](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/frames), [`videos`](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/videos), and [`tracking-full`](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR/tree/tracking-full) branches, alone or in combination. See the [dataset card](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) for access and branch documentation.
+The gated [OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) dataset provides four synchronized inputs for each group activity: `tracking`, `frames`, `videos`, and `tracking-full`. Request dataset access on Hugging Face before downloading any inputs.
 
-The 2027 challenge evaluates the existing test split. The [test manifest](test_manifest.json) lists its **13,689 sample IDs** in submission order and the ten valid class names, without labels. The manifest pins the tracking and frames dataset revisions. Each ID is present in both modalities; predictions may be submitted in any order.
+The complete OpenSportsLib JSON manifests are provided for [train](annotations_train.json), [validation](annotations_valid.json), and [test](annotations_test.json). Each manifest contains the ground-truth action label and one input reference for each branch. The video and tracking files remain on Hugging Face; this repository only contains their paths in the manifests.
 
-Approved users can access test labels upstream, so the [rules](../RULES.md) prohibit using that split for training or model selection. Dataset assets are not mirrored in this repository.
+Each sample has the standard OSL fields `id`, `inputs`, `labels`, and `metadata`. Each input uses its OSL type and a path relative to the repository's `data/` directory after downloading that branch into a same-named folder. The `branch` field distinguishes the two `tracking_parquet` inputs. The exact Hugging Face commit for each source branch is recorded in `metadata.hf_sources`.
+
+For example, download each split to a folder named for its branch:
+
+```python
+from opensportslib.tools import download_dataset_split_from_hf
+
+for branch in ("tracking", "frames", "videos", "tracking-full"):
+    download_dataset_split_from_hf(
+        repo_id="OpenSportsLab/SoccerNet-GAR",
+        revision=branch,
+        split="train",
+        output_dir="data",
+    )
+```
+
+OpenSportsLib places each downloaded split under `data/<branch>/train/`, matching manifest paths such as `tracking/train/clip_000000.parquet`. Replace `train` with `valid` or `test` to download the other splits. The same event IDs and action labels are aligned across all four branches.
+
+The test labels are included because they are available to approved dataset users on Hugging Face. The challenge ranks submissions on this existing test split. Do not train, tune, or select models using test examples or labels; see the [challenge rules](../RULES.md).
