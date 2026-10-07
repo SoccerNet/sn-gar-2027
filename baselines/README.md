@@ -36,7 +36,9 @@ Request access to [OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/
 
    This creates `data/sngar/tracking/{train,valid,test}/` with an OSL JSON annotation file and its extracted tracking inputs in each split directory.
 
-3. In `examples/sngar/sngar_tracking_local.yaml`, set `DATA.common.data_root` to the absolute path `.../opensportslib/data/sngar/tracking`. Set `SYSTEM.gpu.count` to the number of GPUs to use. Then train from the OpenSportsLib repository root:
+   Note: this dataset contains ~90K samples, unzipping the data can take a few hours.
+
+4. In `examples/sngar/sngar_tracking_local.yaml`, set `DATA.common.data_root` to the absolute path `.../opensportslib/data/sngar/tracking`. Set `SYSTEM.gpu.count` to the number of GPUs to use. Then train from the OpenSportsLib repository root:
 
    ```bash
    python tools/train/train_config.py classification examples/sngar/sngar_tracking_local.yaml
@@ -44,7 +46,7 @@ Request access to [OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/
 
    The local configuration trains the GIN + MaxPool model with positional edges, 16 sampled frames, 100 epochs, and seed 42. Training uses the train split and selects the checkpoint using validation data. Do not use the test split for training, tuning, or checkpoint selection; see the [challenge rules](../RULES.md).
 
-4. To export and score test predictions, use the trained validation-selected checkpoint with the OpenSportsLib API from the OpenSportsLib root:
+5. To export and score test predictions, use the trained validation-selected checkpoint with the OpenSportsLib API from the OpenSportsLib root:
 
    ```python
    from opensportslib.apis import ClassificationModel
