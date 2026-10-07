@@ -4,17 +4,16 @@ The tracking reference from [*Pixels or Positions?*](https://github.com/drishyak
 
 1. Request access to [OpenSportsLab/SoccerNet-GAR](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) and run `hf auth login`.
 2. Clone [OpenSportsLib](https://github.com/OpenSportsLab/opensportslib), follow its installation guide, and install `torch-geometric`. The reference configuration requests a GPU.
-3. From the OpenSportsLib root, use `examples/sngar/sngar_tracking_hf.yaml`, which reads the `tracking` revision. For a local copy, use `tools/download/download_osl_hf.py` and `sngar_tracking_local.yaml` as described in the upstream guide.
-4. Train on `train`, select the checkpoint on `valid`, then infer and evaluate on `test`:
+3. From the OpenSportsLib root, run the paper configuration directly to train:
 
-   ```python
-   from opensportslib.apis import ClassificationModel
-
-   model = ClassificationModel(config="examples/sngar/sngar_tracking_hf.yaml")
-   checkpoint = model.train(use_ddp=False, use_wandb=False)
-   predictions = model.infer(use_wandb=False)
-   metrics = model.evaluate(predictions=predictions, use_wandb=False)
-   print(checkpoint, metrics["balanced_accuracy"])
+   ```bash
+   python tools/train/train_config.py classification examples/sngar/sngar_tracking_hf.yaml
    ```
 
-For submission, convert predictions to the ID/label JSON contract in the [evaluation guide](../evaluation/README.md). The [rules](../RULES.md) prohibit training or selecting models on the test split.
+   To use a portable cache location **and produce the exact challenge submission ZIP**, run the [baseline runner](run_tracking.py) from the OpenSportsLib root:
+
+   ```bash
+   python /path/to/sn-gar-2027/baselines/run_tracking.py --output-dir gar-baseline-output
+   ```
+
+The runner pins the tracking dataset revision in the [test manifest](../data/test_manifest.json), trains on `train`, selects the checkpoint on `valid`, infers on `test`, and writes `gar-baseline-output/gar-submission.zip` plus the checkpoint path in `run.json`. To reuse a trained model, add `--checkpoint /path/to/checkpoint`. A GPU is required by the paper configuration; the paper reports approximately four GPU-hours for training. The [rules](../RULES.md) prohibit training or selecting models on the test split.

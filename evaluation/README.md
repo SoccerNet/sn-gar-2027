@@ -4,7 +4,7 @@ The [scorer](scoring.py) calls OpenSportsLib's `compute_classification_metrics(.
 
 ## Prediction format
 
-Submit a ZIP containing `predictions.json` at its root. This JSON file is a list of records such as `{"id":"clip-id","label":"class-name"}`. IDs must be unique and match the reference IDs exactly. Labels must belong to its ten-class vocabulary. The reference JSON uses `{"task":"gar","classes":[...],"records":[{"id":"...","label":"..."}]}`.
+Submit a ZIP containing `predictions.json` at its root. This JSON file is a list of records such as `{"id":"test_000000","label":"PASS"}`. IDs must be unique and cover all **13,689 IDs** in the [test manifest](../data/test_manifest.json), with no extras. Records may appear in any order. Labels must match one of the ten class names in that manifest, including capitalization and spaces. The scorer's reference JSON uses `{"task":"gar","classes":[...],"records":[{"id":"...","label":"..."}]}`.
 
 ## Local scoring
 
@@ -15,3 +15,5 @@ python evaluation/scoring.py --input input --output output
 ```
 
 The script writes `output/scores.json`. The reference file contains labels; only the evaluation environment needs it. Submitted code supports reproducibility review under the [rules](../RULES.md).
+
+The [reference builder](build_reference.py) validates matching test IDs and labels across the pinned tracking and frames revisions, writes the public ID manifest, and produces the scorer reference under the ignored `private/` directory. It requires `pyarrow` and `huggingface_hub` in addition to access to the gated dataset.

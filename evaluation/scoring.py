@@ -1,7 +1,4 @@
-"""CodaBench adapter for SoccerNet-GAR using OpenSportsLib classification metrics.
-
-The reference/prediction JSON contract is provisional until the 2027 split is frozen.
-"""
+"""CodaBench adapter for SoccerNet-GAR using OpenSportsLib classification metrics."""
 from __future__ import annotations
 
 import argparse

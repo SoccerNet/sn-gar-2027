@@ -4,6 +4,8 @@
 
 Submissions predict one of the ten SoccerNet-GAR group activity classes for each test clip. Pixel, position, and combined-input methods share **one leaderboard**, ranked by balanced accuracy.
 
+Each team may submit up to **five times per day**. A team's best valid submission appears on the leaderboard. Equal balanced-accuracy scores share the same rank.
+
 Any external training data, pretrained model, and local or remote model/API service may be used. There is no modality-specific eligibility restriction or separate modality track.
 
 The challenge uses the existing SoccerNet-GAR test split. Although its labels are accessible to approved dataset users, **do not use test examples or labels for training, validation, tuning, or model selection**. Final submissions must include code that reproduces the reported predictions and score without test-set training.
