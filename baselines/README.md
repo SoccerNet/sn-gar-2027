@@ -1,4 +1,4 @@
-# GAR baseline
+# GAR baseline - old
 
 The tracking reference from [*Pixels or Positions?*](https://github.com/drishyakarki/pixels_vs_positions) is a GIN + MaxPool model with positional edges. It uses 16 sampled frames per clip from the dataset's `tracking` branch. This is the baseline's input choice; participants may explore the `videos` and `tracking-full` branches and combine available representations. The paper reports **77.8% balanced accuracy** and **57.0% macro F1**, averaged over five runs. The current [OpenSportsLib SN-GAR guide](https://github.com/OpenSportsLab/opensportslib/blob/main/examples/sngar/README.md) reproduces the configuration with the current Hugging Face layout.
 
