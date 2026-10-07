@@ -17,7 +17,7 @@ The gated [SoccerNet-GAR dataset](https://huggingface.co/datasets/OpenSportsLab/
 
 ## Baseline
 
-The reference method is the GIN + MaxPool + positional-edge tracking model from [Karki et al.](https://github.com/drishyakarki/pixels_vs_positions). The [baseline guide](baselines/README.md) uses the current OpenSportsLib dataset layout and shows how to train and evaluate it.
+The reference method is the GIN + MaxPool + positional-edge tracking model from [Karki et al.](https://github.com/drishyakarki/pixels_vs_positions). The [baseline guide](baselines/README.md) provides its trained checkpoint, test predictions, submission ZIP, and instructions to reproduce inference with OpenSportsLib. The supplied predictions score **78.64% balanced accuracy** on the challenge test set.
 
 ## Evaluation
 

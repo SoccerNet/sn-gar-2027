@@ -10,6 +10,8 @@ outputs/
 *.pt
 *.pth
 *.ckpt
+!baselines/best_epoch_78.pt
+!baselines/gar-submission.zip
 
 # Keep hidden challenge references out of Git.
 **/challenge_GT.json
