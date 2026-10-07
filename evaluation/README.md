@@ -1,6 +1,6 @@
 # GAR evaluation
 
-The [scorer](scoring.py) calls OpenSportsLib's `compute_classification_metrics(..., mode="labels")`. It reports balanced accuracy, macro F1, and accuracy as percentages. **Balanced accuracy** determines the single leaderboard. The scoring environment pins OpenSportsLib commit `dc96cbfd0128fa77cb3bf1b3319e5fdf8c53b5a7` in the [Dockerfile](Dockerfile).
+The [CodaBench evaluation server](https://www.codabench.org/competitions/18326/) accepts result submissions. The [scorer](scoring.py) calls OpenSportsLib's `compute_classification_metrics(..., mode="labels")`. It reports balanced accuracy, macro F1, and accuracy as percentages. **Balanced accuracy** determines the single leaderboard. The scoring environment pins OpenSportsLib commit `dc96cbfd0128fa77cb3bf1b3319e5fdf8c53b5a7` in the [Dockerfile](Dockerfile).
 
 ## Prediction format
 

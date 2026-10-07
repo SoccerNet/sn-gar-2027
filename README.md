@@ -5,7 +5,7 @@
 📅 **Submission deadline:** April 25, 2027, 23:59 Anywhere on Earth (AoE; UTC−12).\
 👥 **Task lead:** Silvio Giancola
 
-🏠 [Challenge website](https://www.soccer-net.org/challenges/2027) · 🗂️ [Data on Hugging Face](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) · 💻 [Baseline](baselines/README.md) · 📚 [Rules](RULES.md) · 📊 [Evaluation](evaluation/README.md)
+🏠 [Challenge website](https://www.soccer-net.org/challenges/2027) · 🗂️ [Data on Hugging Face](https://huggingface.co/datasets/OpenSportsLab/SoccerNet-GAR) · 💻 [Baseline](baselines/README.md) · 📚 [Rules](RULES.md) · 📊 [Evaluation server](https://www.codabench.org/competitions/18326/) · 🧮 [Evaluation code](evaluation/README.md)
 
 ## Task
 
@@ -21,7 +21,7 @@ The reference method is the GIN + MaxPool + positional-edge tracking model from 
 
 ## Evaluation
 
-The [evaluation guide](evaluation/README.md) documents the prediction format and scorer. The scorer calls OpenSportsLib's classification metrics and reports balanced accuracy, macro F1, and accuracy; **balanced accuracy** is the ranking metric.
+Submit predictions through the [CodaBench evaluation server](https://www.codabench.org/competitions/18326/). The [evaluation guide](evaluation/README.md) documents the prediction format and scorer. The scorer calls OpenSportsLib's classification metrics and reports balanced accuracy, macro F1, and accuracy; **balanced accuracy** is the ranking metric.
 
 ## Citation
 
