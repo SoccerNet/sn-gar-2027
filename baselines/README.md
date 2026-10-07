@@ -1,4 +1,4 @@
-# GAR baseline - old
+# GAR baseline
 
 The reference method is the tracking GIN + MaxPool model with positional edges from [*Pixels or Positions?*](https://github.com/drishyakarki/pixels_vs_positions). It uses 16 sampled frames per clip from the `tracking` branch. Participants may also explore the `videos` and `tracking-full` branches or combine modalities. See the [OpenSportsLib SN-GAR guide](https://github.com/OpenSportsLab/opensportslib/tree/main/examples/sngar) for the reference configuration and model details.
 
