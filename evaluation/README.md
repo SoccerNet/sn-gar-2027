@@ -30,7 +30,7 @@ Install the dependencies listed in the [Dockerfile](Dockerfile), then score an O
 ```bash
 python evaluation/scoring.py \
   --ground-truth data/annotations_test.json \
-  --predictions baselines/predictions_test_epoch_final.json
+  --predictions baselines/predictions.json
 ```
 
 The script prints the three metrics as JSON. To also write `scores.json`, pass `--output output`.

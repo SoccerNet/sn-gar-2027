@@ -2,7 +2,7 @@
 
 The reference method is the tracking GIN + MaxPool model with positional edges from [*Pixels or Positions?*](https://github.com/drishyakarki/pixels_vs_positions). It uses 16 sampled frames per clip from the `tracking` branch. Participants may also explore the `videos` and `tracking-full` branches or combine modalities. See the [OpenSportsLib SN-GAR guide](https://github.com/OpenSportsLab/opensportslib/tree/main/examples/sngar) for the reference configuration and model details.
 
-This repository includes the trained [epoch-78 checkpoint](best_epoch_78.pt), its [test predictions](predictions_test_epoch_final.json), the same predictions as [predictions.json](predictions.json), and a ready-to-submit [CodaBench ZIP](gar-submission.zip). Predictions use OpenSportsLib JSON and cover all 13,689 test clips. The supplied checkpoint scores **78.64% balanced accuracy**, **57.15% macro F1**, and **76.96% accuracy** with the [challenge evaluator](../evaluation/README.md); see [metrics.json](metrics.json).
+This repository includes the trained [epoch-78 checkpoint](best_epoch_78.pt), its [test predictions](predictions.json), and a ready-to-submit [CodaBench ZIP](gar-submission.zip). Predictions use OpenSportsLib JSON and cover all 13,689 test clips. The supplied checkpoint scores **78.64% balanced accuracy**, **57.15% macro F1**, and **76.96% accuracy** with the [challenge evaluator](../evaluation/README.md); see [metrics.json](metrics.json).
 
 ## Reproduce the baseline with OpenSportsLib
 
